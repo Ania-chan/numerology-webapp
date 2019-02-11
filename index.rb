@@ -7,7 +7,7 @@ def determine_birth_path(birthdate)
     birthdate[4].to_i + birthdate[5].to_i + 
     birthdate[6].to_i + birthdate[7].to_i;
     
-    birthdateSum = birthdateSum.to_s!
+    birthdateSum = birthdateSum.to_s
     birthdateSum = birthdateSum[0].to_i + birthdateSum[1].to_i
     
     if(birthdateSum > 9)
@@ -20,7 +20,7 @@ end
 def birthday_meaning_message(birth_path)    
     case birth_path
     when 1
-        message = "One is the leader. The number one indicates the ability to stand alone, and is a strong vibration. Ruled by the Sun."
+        message = "One is the leader. The number one indicates the ability to stand alone and is a strong vibration. Ruled by the Sun."
     when 2
         message = "This is the mediator and peace-lover. The number two indicates the desire for harmony. It is a gentle, considerate, and sensitive vibration. Ruled by the Moon."
     when 3
