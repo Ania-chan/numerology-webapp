@@ -45,17 +45,6 @@ def birthday_meaning_message(birth_path)
       end
 end
 
-def setup_index_view
-  birthdate = params[:birthdate]
-    birth_path = determine_birth_path(birthdate)
-    @message = birthday_meaning_message(birth_path)
-    erb :index
-end
-
-def valid_birthdat(input)
-  return true
-end
-
 get '/' do
   erb :form
 end
@@ -72,8 +61,27 @@ end
 
 post '/' do
   birthdate = params[:birthdate].gsub("-","")
-  birth_path = determine_birth_path(birthdate)
-  redirect "/message/#{birth_path}"
+  if valid_birthdate(birthdate)
+    birth_path = determine_birth_path(birthdate)
+    redirect "/message/#{birth_path}"
+  else
+    @error = "Oops! You should enter a valid birthdate in the form of mmddyyyy. Try again!"
+    erb :form
+  end
 end
 
+def setup_index_view
+  birthdate = params[:birthdate]
+    birth_path = determine_birth_path(birthdate)
+    @message = birthday_meaning_message(birth_path)
+    erb :index
+end
+
+def valid_birthdate(input)
+  if input.length == 8 && input.match(/^[0-9]+[0-9]$/)
+    true
+  else
+    false
+  end
+end
 
