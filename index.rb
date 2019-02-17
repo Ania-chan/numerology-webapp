@@ -45,15 +45,35 @@ def birthday_meaning_message(birth_path)
       end
 end
 
+def setup_index_view
+  birthdate = params[:birthdate]
+    birth_path = determine_birth_path(birthdate)
+    @message = birthday_meaning_message(birth_path)
+    erb :index
+end
+
+def valid_birthdat(input)
+  return true
+end
+
 get '/' do
   erb :form
 end
 
+get '/:birthdate' do
+  setup_index_view
+end
+
+get '/message/:birthdate' do
+  birthdate = params[:birthdate].to_i
+  @message = birthday_meaning_message(birthdate)
+  erb :index
+end
+
 post '/' do
-    birthdate = params[:birthdate]
-    birth_path = determine_birth_path(birthdate)
-    @message = birthday_meaning_message(birth_path)
-    erb :index
+  birthdate = params[:birthdate].gsub("-","")
+  birth_path = determine_birth_path(birthdate)
+  redirect "/message/#{birth_path}"
 end
 
 
